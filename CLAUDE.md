@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Coursework for the university course *Mensch-Computer Interaktion* (Human-Computer Interaction), SS 2026. It is a collection of standalone Python practice scripts, not a single application. Each `.py` file is independent and runnable on its own.
+Coursework for the university course _Mensch-Computer Interaktion_ (Human-Computer Interaction), SS 2026. It is a collection of standalone Python practice scripts, not a single application. Each `.py` file is independent and runnable on its own.
 
 ## Environment
 
@@ -21,11 +21,12 @@ python mosh.py
 python Code-Template/saccadic.py    # Tkinter window — needs a display
 ```
 
-Tkinter scripts (`saccadic.py`, `vergence.py`, `persuit.py`) open a window and block on `mainloop()`; they cannot be verified headlessly. Non-GUI scripts (`mosh.py`, and any pandas/matplotlib data exercises) run to completion and *can* be verified headlessly — matplotlib scripts here write a file (e.g. `scatter.png`) rather than opening a window.
+Tkinter scripts (`saccadic.py`, `vergence.py`, `persuit.py`) open a window and block on `mainloop()`; they cannot be verified headlessly. Non-GUI scripts (`mosh.py`, and any pandas/matplotlib data exercises) run to completion and _can_ be verified headlessly — matplotlib scripts here write a file (e.g. `scatter.png`) rather than opening a window.
 
 ## Conventions
 
 Tkinter apps follow a consistent pattern worth matching in new GUI scripts:
+
 - Subclass `ttk.Frame` as `MyApp`, take `root` in `__init__`, call `super().__init__(root)` then `self.grid(...)`.
 - Lay widgets out with `.grid()` (not `.pack()`).
 - Canvas drawing clears with `self.canvas.delete("all")` before redrawing; interactive shapes are given `tags` and wired with `self.canvas.tag_bind(...)`.
@@ -38,4 +39,5 @@ Tkinter apps follow a consistent pattern worth matching in new GUI scripts:
 - Under git version control. The eye-movement scripts were renamed during the rework: the committed `saccades.py`/`convergence.py` are superseded by `saccadic.py`/`vergence.py` (plus the new `persuit.py`), which are not yet committed. The `.venv/`, sample data, and generated output are untracked.
 - `Code-Template/` holds the working exercises plus sample data (`iris_dataset.csv`, `data.csv`, both the standard Iris schema) and `scatter.png` (generated matplotlib output).
 - The three Tkinter eye-movement tests share the structure above and differ only in stimulus motion: `saccadic.py` jumps a circle to random positions (saccades), `vergence.py` moves two dots apart and back together along the midline (convergence/fusion), and `persuit.py` sweeps one dot left-to-right and back (smooth pursuit). `Code-Template/README.md` documents the saccades exercise.
+- `eye_movements.py` is a combined launcher: it imports the three tests unchanged and runs any one of them (only one at a time) on a single shared canvas, with three bottom buttons and a top label that reflects what is running. It reuses each app's animation via thin `_Controller` subclasses that inherit the `tick`/`draw_*` methods but skip the widget-building `__init__` (the canvas and `after` are injected). Run it from inside `Code-Template/` so the sibling imports resolve.
 - `mosh.py` is a smaller standalone exercise (plain Python, no GUI).
