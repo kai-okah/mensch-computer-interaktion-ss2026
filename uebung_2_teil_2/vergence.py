@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
+
 class MyApp(ttk.Frame):
 
     def __init__(self, root):
@@ -23,7 +24,8 @@ class MyApp(ttk.Frame):
         self.grid(column=0, row=0, sticky="nsew")
         self.root.title("Convergence - Eye Movement Test")
         self.configure(padding=(20, 10))
-        self.root.state("zoomed")                    # start maximized (Windows-only)
+        # start maximized (Windows-only)
+        self.root.state("zoomed")
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
 
@@ -34,7 +36,8 @@ class MyApp(ttk.Frame):
         self.canvas = tk.Canvas(self, bg="white", width=1400, height=600)
         self.canvas.grid(column=0, row=1, sticky="nsew")
 
-        self.button = ttk.Button(self, text="Start Convergence", command=self.toggle)
+        self.button = ttk.Button(
+            self, text="Start Convergence", command=self.toggle)
         self.button.grid(column=0, row=2)
 
         self.columnconfigure(0, weight=1)
@@ -65,7 +68,8 @@ class MyApp(ttk.Frame):
             self.separation += self.step
             # Turn back early if the window is too narrow to fit max_separation;
             # recomputed each tick so shrinking the window is handled.
-            limit = min(self.max_separation, self.canvas.winfo_width() - self.diameter)
+            limit = min(self.max_separation,
+                        self.canvas.winfo_width() - self.diameter)
             if self.separation >= limit:
                 self.separation = limit
                 self.closing = True
@@ -86,7 +90,8 @@ class MyApp(ttk.Frame):
         self.draw_dot(center_x + offset, center_y, radius, "blue")
 
     def draw_dot(self, x, y, radius, color):
-        self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill=color)
+        self.canvas.create_oval(x - radius, y - radius,
+                                x + radius, y + radius, fill=color)
 
 
 if __name__ == "__main__":

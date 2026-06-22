@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import random as rnd
 
+
 class MyApp(ttk.Frame):
 
     def __init__(self, root):
@@ -17,7 +18,8 @@ class MyApp(ttk.Frame):
         self.grid(column=0, row=0, sticky="nsew")
         self.root.title("Saccades - Eye Movement Test")
         self.configure(padding=(20, 10))
-        self.root.state("zoomed")                    # start maximized (Windows-only)
+
+        self.root.state("zoomed")
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
 
@@ -27,7 +29,8 @@ class MyApp(ttk.Frame):
         self.canvas = tk.Canvas(self, bg="white", width=1400, height=600)
         self.canvas.grid(column=0, row=1, sticky="nsew")
 
-        self.button = ttk.Button(self, text="Start Saccades", command=self.toggle)
+        self.button = ttk.Button(
+            self, text="Start Saccades", command=self.toggle)
         self.button.grid(column=0, row=2)
 
         self.columnconfigure(0, weight=1)
@@ -58,7 +61,8 @@ class MyApp(ttk.Frame):
         coordinates = self.random_circle_coordinates()
         colors = ["blue", "red"]
         self.canvas.delete("all")
-        self.circle = self.canvas.create_oval(*coordinates, fill=rnd.choice(colors), tags=("c",))
+        self.circle = self.canvas.create_oval(
+            *coordinates, fill=rnd.choice(colors), tags=("c",))
         self.canvas.tag_bind("c", "<Button-1>", self.draw_circle)
 
     def random_circle_coordinates(self):

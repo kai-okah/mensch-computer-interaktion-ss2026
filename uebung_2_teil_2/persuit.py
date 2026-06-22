@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
+
 class MyApp(ttk.Frame):
 
     def __init__(self, root):
@@ -13,7 +14,7 @@ class MyApp(ttk.Frame):
         self.step = 6
         self.diameter = 40
         self.radius = self.diameter // 2
-        self.circle_center = None   # set to the canvas centre on each start
+        self.circle_center = None
         self.move_right = True
 
         # weight = a grid cell is allowed to grow; sticky = the widget stretches to
@@ -21,7 +22,7 @@ class MyApp(ttk.Frame):
         self.grid(column=0, row=0, sticky="nsew")
         self.root.title("Pursuit - Eye Movement Test")
         self.configure(padding=(20, 10))
-        self.root.state("zoomed")                    # start maximized (Windows-only)
+        self.root.state("zoomed")
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
 
@@ -32,7 +33,8 @@ class MyApp(ttk.Frame):
         self.canvas = tk.Canvas(self, bg="white", width=1400, height=600)
         self.canvas.grid(column=0, row=1, sticky="nsew")
 
-        self.button = ttk.Button(self, text="Start Pursuit", command=self.toggle)
+        self.button = ttk.Button(
+            self, text="Start Pursuit", command=self.toggle)
         self.button.grid(column=0, row=2)
 
         self.columnconfigure(0, weight=1)
@@ -57,7 +59,7 @@ class MyApp(ttk.Frame):
         if self.circle_center > (self.canvas.winfo_width() - self.radius):
             self.circle_center = self.canvas.winfo_width() - self.radius
             self.move_right = False
-        
+
         elif self.circle_center <= self.radius:
             self.circle_center = self.radius
             self.move_right = True
@@ -78,7 +80,8 @@ class MyApp(ttk.Frame):
         self.draw_dot(center_x, center_y, self.radius, "red")
 
     def draw_dot(self, x, y, radius, color):
-        self.canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill=color)
+        self.canvas.create_oval(x - radius, y - radius,
+                                x + radius, y + radius, fill=color)
 
 
 if __name__ == "__main__":
